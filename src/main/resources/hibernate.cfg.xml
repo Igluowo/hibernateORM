@@ -9,9 +9,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
 
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:sqlserver://192.168.234.32\prueba:1433;databaseName=Cines;TrustServerCertificate=true;</property>
+        <property name="connection.url">jdbc:sqlserver://192.168.56.101\prueba:1433;databaseName=Cines;TrustServerCertificate=true;</property>
         <property name="connection.username">sa</property>
         <property name="connection.password">@Contraseña1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name ="hibernate.show_sql">true</property>
+        <mapping class="entidades.Tarifa"></mapping>
+        <mapping class="entidades.Cine"></mapping>
+        <mapping class="entidades.Protagonista"></mapping>
+        <mapping class="entidades.Pelicula"></mapping>
+        <mapping class="entidades.Funcion"></mapping>
+
     </session-factory>
 </hibernate-configuration>

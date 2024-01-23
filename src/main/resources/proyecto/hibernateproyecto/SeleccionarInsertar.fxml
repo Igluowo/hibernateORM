@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.SeleccionarTablaController">
+   <children>
+      <Label layoutX="109.0" layoutY="36.0" text="Seleccionar tabla a ">
+         <font>
+            <Font name="Consolas" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="etiquetaAccion" layoutX="373.0" layoutY="36.0" prefHeight="28.0" prefWidth="157.0" text="accion">
+         <font>
+            <Font name="Consolas" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="botonCine" layoutX="96.0" layoutY="132.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Cine" />
+      <Button fx:id="botonPeliculas" layoutX="253.0" layoutY="132.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Peliculas" />
+      <Button fx:id="botonFuncion" layoutX="401.0" layoutY="132.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Función" />
+      <Button fx:id="botonTarifa" layoutX="166.0" layoutY="232.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Tarifa" />
+      <Button fx:id="botonProtagonista" layoutX="338.0" layoutY="232.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Protagonista" />
+   </children>
+</AnchorPane>

@@ -15,6 +15,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static String accion;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,4 +38,11 @@ public class App extends Application {
         launch();
     }
 
+    public static String getAccion() {
+        return accion;
+    }
+
+    public static void setAccion(String accion) {
+        App.accion = accion;
+    }
 }
