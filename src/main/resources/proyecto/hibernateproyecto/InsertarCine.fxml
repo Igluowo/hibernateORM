@@ -6,22 +6,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="proyecto.hibernateproyecto.PantallaCineController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaCineController">
    <children>
-      <Label layoutX="181.0" layoutY="30.0" prefHeight="38.0" prefWidth="262.0" text="Inserción a la tabla Cine">
+      <Label fx:id="tituloVentana" layoutX="173.0" layoutY="33.0" prefHeight="38.0" prefWidth="255.0" text="Inserción a la tabla Cine">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="91.0" layoutY="153.0" />
-      <TextField layoutX="368.0" layoutY="153.0" />
-      <TextField layoutX="87.0" layoutY="264.0" />
-      <TextField layoutX="364.0" layoutY="264.0" />
-      <Label layoutX="113.0" layoutY="126.0" text="Nombre de cine" />
-      <Label layoutX="409.0" layoutY="126.0" text="Dirección" />
-      <Label layoutX="108.0" layoutY="236.0" text="Número de calle" />
-      <Label layoutX="415.0" layoutY="236.0" text="Teléfono" />
-      <Button layoutX="466.0" layoutY="337.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="88.0" text="Insertar" />
+      <TextField fx:id="fieldNombre" layoutX="91.0" layoutY="153.0" />
+      <TextField fx:id="fieldDireccion" layoutX="368.0" layoutY="153.0" />
+      <TextField fx:id="fieldNumero" layoutX="87.0" layoutY="264.0" />
+      <TextField fx:id="fieldTelefono" layoutX="364.0" layoutY="264.0" />
+      <Label fx:id="etiquetaNombre" layoutX="113.0" layoutY="126.0" text="Nombre de cine" />
+      <Label fx:id="etiquetaDireccion" layoutX="409.0" layoutY="126.0" text="Dirección" />
+      <Label fx:id="etiquetaNumero" layoutX="108.0" layoutY="236.0" text="Número de calle" />
+      <Label fx:id="etiquetaTelefono" layoutX="415.0" layoutY="236.0" text="Teléfono" />
+      <Button fx:id="botonInsertar" layoutX="466.0" layoutY="337.0" mnemonicParsing="false" onAction="#insertar" prefHeight="38.0" prefWidth="88.0" text="Insertar" />
    </children>
 </AnchorPane>

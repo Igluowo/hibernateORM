@@ -4,13 +4,18 @@
  */
 package proyecto.hibernateproyecto;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -22,8 +27,10 @@ public class SeleccionarTablaController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-    
+    private Parent root;
+    private Stage escena;
+    private Scene scene;
+
     @FXML
     private Button botonCine;
 
@@ -41,7 +48,6 @@ public class SeleccionarTablaController implements Initializable {
 
     @FXML
     private Label etiquetaAccion;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,8 +57,25 @@ public class SeleccionarTablaController implements Initializable {
     }
 
     @FXML
-    void cambiarVentana(ActionEvent event) {
-
+    void cambiarVentana(ActionEvent event) throws IOException {
+        String ventana = "";
+        if (event.getSource() == botonCine) {
+            ventana = "InsertarCine.fxml";
+        } else if (event.getSource() == botonFuncion) {
+            ventana = "InsertarFuncion.fxml";
+        } else if (event.getSource() == botonPeliculas) {
+            ventana = "InsertarCine.fxml";
+        } else if (event.getSource() == botonProtagonista) {
+            ventana = "InsertarProtagonista.fxml";
+        } else {
+            ventana = "InsertarTarifa.fxml";
+        }
+        FXMLLoader escenaFMXL = new FXMLLoader(App.class.getResource(ventana));
+        root = escenaFMXL.load();
+        scene = new Scene(root);
+        escena = new Stage();
+        escena.setScene(scene);
+        escena.show();
     }
-    
+
 }

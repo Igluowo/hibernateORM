@@ -39,7 +39,6 @@ public class PantallaPrincipalController implements Initializable {
     private Parent root;
     private Stage escena;
     private Scene scene;
-    private String accion;
 
     @FXML
     private Button actualizarDatos;

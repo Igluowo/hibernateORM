@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaPrincipalController">
    <children>
-      <Label layoutX="111.0" layoutY="26.0" prefHeight="68.0" prefWidth="378.0" text="Sistema de cargas de Cines">
+      <Label layoutX="158.0" layoutY="28.0" prefHeight="68.0" prefWidth="285.0" text="Sistema de carga de datos Cine">
          <font>
-            <Font name="Cascadia Mono Regular" size="24.0" />
+            <Font name="Arial Narrow" size="24.0" />
          </font>
       </Label>
       <Button fx:id="aniadirDatos" layoutX="98.0" layoutY="150.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="60.0" prefWidth="111.0" text="Añadir datos" />
