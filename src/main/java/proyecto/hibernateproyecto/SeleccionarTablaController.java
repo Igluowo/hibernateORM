@@ -61,9 +61,11 @@ public class SeleccionarTablaController implements Initializable {
         String ventana = "";
         if (event.getSource() == botonCine) {
             ventana = "InsertarCine.fxml";
+            App.setCine(true);
         } else if (event.getSource() == botonFuncion) {
             ventana = "InsertarFuncion.fxml";
         } else if (event.getSource() == botonPeliculas) {
+            App.setCine(false);
             ventana = "InsertarCine.fxml";
         } else if (event.getSource() == botonProtagonista) {
             ventana = "InsertarProtagonista.fxml";

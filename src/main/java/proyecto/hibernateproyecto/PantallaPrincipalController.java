@@ -40,6 +40,7 @@ public class PantallaPrincipalController implements Initializable {
     private Stage escena;
     private Scene scene;
 
+
     @FXML
     private Button actualizarDatos;
 
@@ -57,10 +58,7 @@ public class PantallaPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
-        final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
-        final Session sesion = sessionFactory.openSession();
-        sesion.beginTransaction();
+        //sesion.beginTransaction();
         Cine cine = new Cine("Yelmito", "4 de Mayo", "23", "933123456");
         Pelicula pelicula = new Pelicula("El resplandor", "Pepito Perez", "C", "Terror");
         LocalTime hora = LocalTime.of(12, 12, 12);

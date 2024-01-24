@@ -6,7 +6,13 @@ package proyecto.hibernateproyecto;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -20,7 +26,29 @@ public class PantallaProtagonistaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        if (App.getAccion() == "actualizar") {
+            botonInsertar.setText("Actualizar");
+            tituloVentana.setText("Actualizar la tabla Protagonista");
+        }
     }    
+    
+    
+    @FXML
+    private Button botonInsertar;
+
+    @FXML
+    private ComboBox<?> comboPelicula;
+
+    @FXML
+    private TextField fieldProtagonista;
+
+    @FXML
+    private Label tituloVentana;
+
+    @FXML
+    void insertar(ActionEvent event) {
+
+    }
+
     
 }

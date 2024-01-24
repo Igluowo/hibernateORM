@@ -4,6 +4,7 @@
  */
 package proyecto.hibernateproyecto;
 
+import entidades.Cine;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -56,18 +58,30 @@ public class PantallaCineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (App.getAccion() == "actualizar") {
+            botonInsertar.setText("Actualizar");
+            tituloVentana.setText("Actualizar la tabla Cine");
+        }
+        if (!App.isCine()) {
             etiquetaNombre.setText("Título");
             etiquetaDireccion.setText("Director");
             etiquetaNumero.setText("Clasificación");
             etiquetaTelefono.setText("Género");
-            botonInsertar.setText("Actualizar");
-            tituloVentana.setText("Actualizar la tabla Cine");
         }
     }
 
     @FXML
     void insertar(ActionEvent event) {
-
+        String nombre = fieldNombre.getText();
+        String direccion = fieldDireccion.getText();
+        String numero = fieldNumero.getText();
+        String telefono = fieldTelefono.getText();
+        fieldNombre.clear();
+        fieldDireccion.clear();
+        fieldNumero.clear();
+        fieldTelefono.clear();
+        Cine cine = new Cine(nombre, direccion, numero, telefono);
+        Session sesion = cine.crearSesion();
+        cine.insertar(sesion, cine);
     }
 
 }
