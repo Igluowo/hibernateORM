@@ -5,6 +5,7 @@
 package proyecto.hibernateproyecto;
 
 import entidades.Cine;
+import entidades.Pelicula;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -71,17 +72,39 @@ public class PantallaCineController implements Initializable {
 
     @FXML
     void insertar(ActionEvent event) {
-        String nombre = fieldNombre.getText();
-        String direccion = fieldDireccion.getText();
-        String numero = fieldNumero.getText();
-        String telefono = fieldTelefono.getText();
-        fieldNombre.clear();
-        fieldDireccion.clear();
-        fieldNumero.clear();
-        fieldTelefono.clear();
-        Cine cine = new Cine(nombre, direccion, numero, telefono);
-        Session sesion = cine.crearSesion();
-        cine.insertar(sesion, cine);
+        if (App.isCine()) {
+            String nombre = fieldNombre.getText();
+            String direccion = fieldDireccion.getText();
+            String numero = fieldNumero.getText();
+            String telefono = fieldTelefono.getText();
+            fieldNombre.clear();
+            fieldDireccion.clear();
+            fieldNumero.clear();
+            fieldTelefono.clear();
+            Cine cine = new Cine(nombre, direccion, numero, telefono);
+            Session sesion = cine.crearSesion();
+            if (App.getAccion() == "añadir") {
+                cine.insertar(sesion, cine);
+            }else{
+                cine.actualizar(sesion, cine);
+            }
+        } else {
+            String titulo = fieldNombre.getText();
+            String director = fieldDireccion.getText();
+            String clasificacion = fieldNumero.getText();
+            String genero = fieldTelefono.getText();
+            fieldNombre.clear();
+            fieldDireccion.clear();
+            fieldNumero.clear();
+            fieldTelefono.clear();
+            Pelicula pelicula = new Pelicula(titulo, director, clasificacion, genero);
+            Session sesion = pelicula.crearSesion();
+            if (App.getAccion() == "añadir") {
+                pelicula.insertar(sesion, pelicula);
+            }else{
+                pelicula.actualizar(sesion, pelicula);
+            }
+        }
     }
 
 }

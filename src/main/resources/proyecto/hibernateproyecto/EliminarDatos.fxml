@@ -7,18 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="proyecto.hibernateproyecto.EliminarDatosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.EliminarDatosController">
    <children>
       <Label layoutX="219.0" layoutY="27.0" prefHeight="35.0" prefWidth="161.0" text="Eliminar datos">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox layoutX="69.0" layoutY="161.0" prefWidth="150.0" />
-      <TextField layoutX="381.0" layoutY="161.0" />
+      <ComboBox fx:id="comboTabla" layoutX="69.0" layoutY="161.0" prefWidth="150.0" />
+      <TextField fx:id="fieldId" layoutX="381.0" layoutY="161.0" />
       <Label layoutX="99.0" layoutY="131.0" text="Seleccionar tabla" />
       <Label layoutX="427.0" layoutY="131.0" text="Id del dato" />
-      <Button layoutX="239.0" layoutY="305.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="122.0" text="Eliminar" />
+      <Button fx:id="botonEliminar" layoutX="239.0" layoutY="305.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="55.0" prefWidth="122.0" text="Eliminar" />
    </children>
 </AnchorPane>

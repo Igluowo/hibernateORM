@@ -12,33 +12,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
  *
  * @author 2damb
  */
-
 @Entity
 @Table(name = "Tarifa")
-public class Tarifa {
+public class Tarifa extends AccionesGenerico {
 
-    public Tarifa() {}
+    public Tarifa() {
+    }
+
     public Tarifa(String dia, double precio, Cine cine) {
         this.dia = dia;
         this.precio = precio;
         this.cine = cine;
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "Día")
     private String dia;
-    
+
     @Column(name = "Precio")
     private double precio;
-    
+
     @ManyToOne
     @JoinColumn(name = "IdCine")
     private Cine cine;
@@ -74,6 +79,22 @@ public class Tarifa {
     public void setCine(Cine cine) {
         this.cine = cine;
     }
-    
-    
+
+    @Override
+    public List<Tarifa> consultar(Session session) {
+        String consulta = "FROM Tarifa";
+        Query query = session.createQuery(consulta);
+        List<Tarifa> lista = query.list();
+        return lista;
+    }
+
+    public Tarifa consultarId(Session session, String id) {
+        Tarifa tarifa = session.get(Tarifa.class, id);
+        return tarifa;
+    }
+
+    @Override
+    public String toString() {
+        return "\nCine: " + cine.getNombre() + "\nDia: " + dia + "\nPrecio: " + precio;
+    }
 }

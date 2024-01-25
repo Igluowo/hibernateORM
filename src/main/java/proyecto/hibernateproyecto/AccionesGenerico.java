@@ -19,8 +19,8 @@ public abstract class AccionesGenerico<T> {
     public Session crearSesion() {
         final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure().build();
         final SessionFactory sessionFactory = new MetadataSources(registro).buildMetadata().buildSessionFactory();
-        Session sesion = sessionFactory.openSession();
-        return sesion;
+        Session session = sessionFactory.openSession();
+        return session;
     }
 
     public void insertar(Session sesion, T objeto) {
@@ -31,12 +31,18 @@ public abstract class AccionesGenerico<T> {
     }
 
     public void eliminar(Session sesion, T objeto) {
+        sesion.beginTransaction();
         sesion.delete(objeto);
+        sesion.getTransaction();
+        sesion.close();
     }
 
-    public void modificar(Session sesion, T objeto) {
+    public void actualizar(Session sesion, T objeto) {
+        sesion.beginTransaction();
         sesion.merge(objeto);
+        sesion.getTransaction().commit();
+        sesion.close();
     }
 
-    public abstract T consultar(Session sesion, String id);
+    public abstract T consultar(Session sesion);
 }

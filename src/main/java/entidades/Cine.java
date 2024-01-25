@@ -10,8 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
@@ -98,7 +100,21 @@ public class Cine extends AccionesGenerico {
     }
 
     @Override
-    public Object consultar(Session session, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Cine> consultar(Session session) {
+        String consulta = "FROM Cine";
+        Query query = session.createQuery(consulta);
+        List<Cine> lista = query.list();
+        return lista;
+    }
+    
+    public Cine consultarId(Session session, String id) {
+        Cine cine = session.get(Cine.class, id);
+        return cine;
+    }
+    
+    @Override
+    public String toString() {
+        return "\nNombre: " + nombre + "\nCalle: " + calle + "\nNúmero: " + numero +
+                "\nTeléfono: " + telefono;
     }
 }

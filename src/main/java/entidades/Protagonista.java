@@ -11,27 +11,31 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
  *
  * @author erick
  */
-
 @Entity
 @Table(name = "Protagonista")
 public class Protagonista extends AccionesGenerico {
+
+    public Protagonista() {
+    }
 
     public Protagonista(String nombre, Pelicula pelicula) {
         this.nombre = nombre;
         this.pelicula = pelicula;
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "Nombre")
     private String nombre;
 
@@ -63,7 +67,20 @@ public class Protagonista extends AccionesGenerico {
     }
 
     @Override
-    public Object consultar(Session session, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Protagonista> consultar(Session session) {
+        String consulta = "FROM Protagonista";
+        Query query = session.createQuery(consulta);
+        List<Protagonista> lista = query.list();
+        return lista;
+    }
+
+    public Protagonista consultarId(Session session, String id) {
+        Protagonista protagonista = session.get(Protagonista.class, id);
+        return protagonista;
+    }
+
+    @Override
+    public String toString() {
+        return "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo();
     }
 }

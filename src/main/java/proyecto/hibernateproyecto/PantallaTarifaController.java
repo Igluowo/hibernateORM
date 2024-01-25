@@ -4,8 +4,13 @@
  */
 package proyecto.hibernateproyecto;
 
+import entidades.Cine;
+import entidades.Tarifa;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -27,17 +33,25 @@ public class PantallaTarifaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Cine cineOb = new Cine();
+        Session sesion = cineOb.crearSesion();
+        List<Cine> listaCine = cineOb.consultar(sesion);
+        ObservableList<String> listaString = FXCollections.observableArrayList();
+        for (Cine cine : listaCine) {
+            listaString.add(cine.getNombre());
+        }
+        comboCine.setItems(listaString);
         if (App.getAccion() == "actualizar") {
             botonInsertar.setText("Actualizar");
             tituloVentana.setText("Actualizar la tabla Tarifa");
         }
-    }    
-    
+    }
+
     @FXML
     private Button botonInsertar;
 
     @FXML
-    private ComboBox<?> comboCine;
+    private ComboBox<String> comboCine;
 
     @FXML
     private TextField fieldDia;
@@ -50,6 +64,19 @@ public class PantallaTarifaController implements Initializable {
 
     @FXML
     void insertar(ActionEvent event) {
-        
-    }    
+        String cineString = comboCine.getValue();
+        String dia = fieldDia.getText();
+        String precio = fieldPrecio.getValue().toString();
+        Cine cineOb = new Cine();
+        Session sesion = cineOb.crearSesion();
+        Cine cine = cineOb.consultarId(sesion, cineString);
+        Tarifa tarifa = new Tarifa();
+        sesion = tarifa.crearSesion();
+        tarifa.insertar(sesion, cine);
+        if (App.getAccion() == "añadir") {
+            tarifa.insertar(sesion, tarifa);
+        } else {
+            tarifa.actualizar(sesion, tarifa);
+        }
+    }
 }

@@ -13,7 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalTime;
+import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.query.Query;
 import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
@@ -24,7 +27,10 @@ import proyecto.hibernateproyecto.AccionesGenerico;
 @Table(name = "Función")
 public class Funcion extends AccionesGenerico {
 
-    public Funcion(Pelicula idPelicula, Cine idCine, LocalTime hora) {
+    public Funcion() {
+    }
+
+    public Funcion(Pelicula idPelicula, Cine idCine, String hora) {
         this.idPelicula = idPelicula;
         this.idCine = idCine;
         this.hora = hora;
@@ -43,7 +49,7 @@ public class Funcion extends AccionesGenerico {
     Cine idCine;
 
     @Column(name = "Hora")
-    private LocalTime hora;
+    private String hora;
 
     public Pelicula getIdPelicula() {
         return idPelicula;
@@ -61,16 +67,30 @@ public class Funcion extends AccionesGenerico {
         this.idCine = idCine;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
     @Override
-    public Object consultar(Session session, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Funcion> consultar(Session session) {
+        String consulta = "FROM Funcion";
+        Query query = session.createQuery(consulta);
+        List<Funcion> lista = query.list();
+        return lista;
+    }
+
+    public Funcion consultarId(Session session, String id) {
+        Funcion funcion = session.get(Funcion.class, id);
+        return funcion;
+    }
+
+    @Override
+    public String toString() {
+        return "\nCine: " + idCine.getNombre() + "\nPelícula: " + idPelicula.getTitulo() +
+                "\nHora: " + hora;
     }
 }

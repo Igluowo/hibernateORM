@@ -4,13 +4,8 @@
  */
 package proyecto.hibernateproyecto;
 
-import entidades.Cine;
-import entidades.Funcion;
-import entidades.Pelicula;
-import entidades.Tarifa;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,12 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 /**
  * FXML Controller class
  *
@@ -58,13 +47,7 @@ public class PantallaPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //sesion.beginTransaction();
-        Cine cine = new Cine("Yelmito", "4 de Mayo", "23", "933123456");
-        Pelicula pelicula = new Pelicula("El resplandor", "Pepito Perez", "C", "Terror");
-        LocalTime hora = LocalTime.of(12, 12, 12);
-        Funcion funcion = new Funcion(pelicula, cine, hora);
-        Cine cine2 = new Cine("Yelmitoito", "4 de Mayo", "23", "933123456");
-        Tarifa tarifa = new Tarifa("Lunes", 4.70, cine);
+
     }
 
     @FXML

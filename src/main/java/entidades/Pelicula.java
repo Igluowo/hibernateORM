@@ -10,8 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
@@ -21,6 +23,9 @@ import proyecto.hibernateproyecto.AccionesGenerico;
 @Entity
 @Table(name = "Pelicula")
 public class Pelicula extends AccionesGenerico {
+
+    public Pelicula() {
+    }
 
     public Pelicula(String titulo, String director, String clasificacion, String genero) {
         this.titulo = titulo;
@@ -97,7 +102,21 @@ public class Pelicula extends AccionesGenerico {
     }
 
     @Override
-    public Object consultar(Session session, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Pelicula> consultar(Session session) {
+        String consulta = "FROM Pelicula";
+        Query query = session.createQuery(consulta);
+        List<Pelicula> lista = query.list();
+        return lista;
+    }
+
+    public Pelicula consultarId(Session session, String id) {
+        Pelicula pelicula = session.get(Pelicula.class, id);
+        return pelicula;
+    }
+
+    @Override
+    public String toString() {
+        return "\nTitulo: " + titulo + "\nDirector: " + director + "\nClasificacion: " + clasificacion
+                + "\nTeléfono: " + genero;
     }
 }
