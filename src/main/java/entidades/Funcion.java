@@ -91,6 +91,6 @@ public class Funcion extends AccionesGenerico {
     @Override
     public String toString() {
         return "\nCine: " + idCine.getNombre() + "\nPelícula: " + idPelicula.getTitulo() +
-                "\nHora: " + hora;
+                "\nHora: " + hora + "\n";
     }
 }

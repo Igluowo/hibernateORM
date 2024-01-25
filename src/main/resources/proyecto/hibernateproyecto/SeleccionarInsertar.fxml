@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.SeleccionarTablaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.SeleccionarTablaController">
    <children>
       <Label layoutX="109.0" layoutY="36.0" text="Seleccionar tabla a ">
          <font>
@@ -22,5 +22,6 @@
       <Button fx:id="botonFuncion" layoutX="401.0" layoutY="132.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Función" />
       <Button fx:id="botonTarifa" layoutX="166.0" layoutY="232.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Tarifa" />
       <Button fx:id="botonProtagonista" layoutX="338.0" layoutY="232.0" mnemonicParsing="false" onAction="#cambiarVentana" prefHeight="64.0" prefWidth="102.0" text="Protagonista" />
+      <Button fx:id="botonVolver" layoutX="37.0" layoutY="349.0" mnemonicParsing="false" onAction="#volver" prefHeight="28.0" prefWidth="84.0" text="Volver" />
    </children>
 </AnchorPane>

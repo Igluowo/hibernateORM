@@ -81,6 +81,6 @@ public class Protagonista extends AccionesGenerico {
 
     @Override
     public String toString() {
-        return "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo();
+        return "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo() + "\n";
     }
 }

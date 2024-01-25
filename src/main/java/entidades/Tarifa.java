@@ -95,6 +95,6 @@ public class Tarifa extends AccionesGenerico {
 
     @Override
     public String toString() {
-        return "\nCine: " + cine.getNombre() + "\nDia: " + dia + "\nPrecio: " + precio;
+        return "\nCine: " + cine.getNombre() + "\nDia: " + dia + "\nPrecio: " + precio + "\n";
     }
 }

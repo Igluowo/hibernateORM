@@ -115,6 +115,6 @@ public class Cine extends AccionesGenerico {
     @Override
     public String toString() {
         return "\nNombre: " + nombre + "\nCalle: " + calle + "\nNúmero: " + numero +
-                "\nTeléfono: " + telefono;
+                "\nTeléfono: " + telefono + "\n";
     }
 }

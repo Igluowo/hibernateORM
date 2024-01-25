@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -59,6 +60,9 @@ public class SeleccionarTablaController implements Initializable {
     @FXML
     void cambiarVentana(ActionEvent event) throws IOException {
         String ventana = "";
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
         if (event.getSource() == botonCine) {
             ventana = "InsertarCine.fxml";
             App.setCine(true);
@@ -78,6 +82,12 @@ public class SeleccionarTablaController implements Initializable {
         escena = new Stage();
         escena.setScene(scene);
         escena.show();
+    }
+    
+    
+    @FXML
+    void volver(ActionEvent event) {
+
     }
 
 }

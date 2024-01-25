@@ -117,6 +117,6 @@ public class Pelicula extends AccionesGenerico {
     @Override
     public String toString() {
         return "\nTitulo: " + titulo + "\nDirector: " + director + "\nClasificacion: " + clasificacion
-                + "\nTeléfono: " + genero;
+                + "\nTeléfono: " + genero + "\n";
     }
 }

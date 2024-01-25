@@ -11,10 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
 /**
  * FXML Controller class
  *
@@ -28,7 +30,6 @@ public class PantallaPrincipalController implements Initializable {
     private Parent root;
     private Stage escena;
     private Scene scene;
-
 
     @FXML
     private Button actualizarDatos;
@@ -53,6 +54,9 @@ public class PantallaPrincipalController implements Initializable {
     @FXML
     void cambiarVentana(ActionEvent event) throws IOException {
         String ventana = "";
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
         if (event.getSource() == visualizarDatos) {
             ventana = "VisualizarDatos.fxml";
         } else if (event.getSource() == eliminarDatos) {
