@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaProtagonistaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaProtagonistaController">
    <children>
       <Label fx:id="tituloVentana" layoutX="145.0" layoutY="23.0" text="Insetar datos en Protagonista">
          <font>
@@ -19,5 +19,6 @@
       <Label layoutX="82.0" layoutY="164.0" text="Nombre del protagonista" />
       <Label layoutX="429.0" layoutY="164.0" text="Pelicula" />
       <Button fx:id="botonInsertar" layoutX="413.0" layoutY="324.0" mnemonicParsing="false" onAction="#insertar" prefHeight="50.0" prefWidth="134.0" text="Insertar" />
+      <Button fx:id="botonVolver" layoutX="53.0" layoutY="324.0" mnemonicParsing="false" onAction="#volver" prefHeight="50.0" prefWidth="91.0" text="Volver" />
    </children>
 </AnchorPane>

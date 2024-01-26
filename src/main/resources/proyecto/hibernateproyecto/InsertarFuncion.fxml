@@ -21,5 +21,6 @@
       <Label layoutX="114.0" layoutY="115.0" text="Nombre de pelicula" />
       <Label layoutX="113.0" layoutY="226.0" text="Nombre de cine" />
       <Label layoutX="373.0" layoutY="166.0" text="Hora (00:00:00)" />
+      <Button fx:id="botonVolver" layoutX="27.0" layoutY="330.0" mnemonicParsing="false" onAction="#volver" prefHeight="50.0" prefWidth="86.0" text="Volver" />
    </children>
 </AnchorPane>

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaCineController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaCineController">
    <children>
-      <Label fx:id="tituloVentana" layoutX="173.0" layoutY="33.0" prefHeight="38.0" prefWidth="255.0" text="Inserción a la tabla Cine">
+      <Label fx:id="tituloVentana" layoutX="173.0" layoutY="33.0" prefHeight="38.0" prefWidth="406.0" text="Inserción a la tabla Cine">
          <font>
             <Font size="24.0" />
          </font>
@@ -22,5 +22,6 @@
       <Label fx:id="etiquetaNumero" layoutX="108.0" layoutY="236.0" text="Número de calle" />
       <Label fx:id="etiquetaTelefono" layoutX="415.0" layoutY="236.0" text="Teléfono" />
       <Button fx:id="botonInsertar" layoutX="466.0" layoutY="337.0" mnemonicParsing="false" onAction="#insertar" prefHeight="38.0" prefWidth="88.0" text="Insertar" />
+      <Button fx:id="botonVolver" layoutX="38.0" layoutY="337.0" mnemonicParsing="false" onAction="#volver" prefHeight="38.0" prefWidth="74.0" text="Volver" />
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ package proyecto.hibernateproyecto;
 
 import entidades.Pelicula;
 import entidades.Protagonista;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,11 +14,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 
 /**
@@ -74,5 +80,18 @@ public class PantallaProtagonistaController implements Initializable {
         } else {
             protagonista.actualizar(session, pelicula);
         }
+    }
+
+    @FXML
+    void volver(ActionEvent event) throws IOException {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        FXMLLoader escena = new FXMLLoader(App.class.getResource("SeleccionarInsertar.fxml"));
+        Parent looker = escena.load();
+        Scene scene = new Scene(looker);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 }

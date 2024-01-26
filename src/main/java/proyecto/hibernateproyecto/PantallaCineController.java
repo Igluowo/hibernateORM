@@ -6,14 +6,20 @@ package proyecto.hibernateproyecto;
 
 import entidades.Cine;
 import entidades.Pelicula;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 
 /**
@@ -67,6 +73,11 @@ public class PantallaCineController implements Initializable {
             etiquetaDireccion.setText("Director");
             etiquetaNumero.setText("Clasificación");
             etiquetaTelefono.setText("Género");
+            if (App.getAccion() == "actualizar") {
+                tituloVentana.setText("Actualizar a la tabla película");
+            } else {
+                tituloVentana.setText("Insertar a la tabla película");
+            }
         }
     }
 
@@ -85,7 +96,7 @@ public class PantallaCineController implements Initializable {
             Session sesion = cine.crearSesion();
             if (App.getAccion() == "añadir") {
                 cine.insertar(sesion, cine);
-            }else{
+            } else {
                 cine.actualizar(sesion, cine);
             }
         } else {
@@ -101,10 +112,22 @@ public class PantallaCineController implements Initializable {
             Session sesion = pelicula.crearSesion();
             if (App.getAccion() == "añadir") {
                 pelicula.insertar(sesion, pelicula);
-            }else{
+            } else {
                 pelicula.actualizar(sesion, pelicula);
             }
         }
     }
 
+    @FXML
+    void volver(ActionEvent event) throws IOException {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        FXMLLoader escena = new FXMLLoader(App.class.getResource("SeleccionarInsertar.fxml"));
+        Parent looker = escena.load();
+        Scene scene = new Scene(looker);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

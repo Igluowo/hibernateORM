@@ -9,16 +9,22 @@ import entidades.Funcion;
 import entidades.Pelicula;
 import entidades.Protagonista;
 import entidades.Tarifa;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 
 /**
@@ -91,4 +97,16 @@ public class EliminarDatosController implements Initializable {
         }
     }
 
+    @FXML
+    void volver(ActionEvent event) throws IOException {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        FXMLLoader escena = new FXMLLoader(App.class.getResource("PantallaPrincipal.fxml"));
+        Parent looker = escena.load();
+        Scene scene = new Scene(looker);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

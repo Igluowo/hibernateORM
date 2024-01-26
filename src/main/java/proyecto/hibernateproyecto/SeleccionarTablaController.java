@@ -86,8 +86,15 @@ public class SeleccionarTablaController implements Initializable {
     
     
     @FXML
-    void volver(ActionEvent event) {
-
+    void volver(ActionEvent event) throws IOException {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        FXMLLoader escena = new FXMLLoader(App.class.getResource("PantallaPrincipal.fxml"));
+        Parent looker = escena.load();
+        Scene scene = new Scene(looker);
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
-
 }
