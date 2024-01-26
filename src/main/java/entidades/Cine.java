@@ -102,7 +102,7 @@ public class Cine extends AccionesGenerico {
     @Override
     public List<Cine> consultar(Session session) {
         String consulta = "FROM Cine";
-        Query query = session.createQuery(consulta);
+        Query query = session.createQuery(consulta, Cine.class);
         List<Cine> lista = query.list();
         return lista;
     }

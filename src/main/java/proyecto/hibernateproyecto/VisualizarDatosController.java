@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 
@@ -46,6 +47,7 @@ public class VisualizarDatosController implements Initializable {
         listaTablas.add("Funcion");
         listaTablas.add("Tarifa");
         listaTablas.add("Protagonista");
+        listaTablas.add("Peliculas por cine");
         comboTabla.setItems(listaTablas);
     }
 
@@ -64,8 +66,12 @@ public class VisualizarDatosController implements Initializable {
     private ComboBox<String> comboTabla;
 
     @FXML
+    private TextField fieldConsulta;
+
+    @FXML
     void visualizar(ActionEvent event) {
         String tabla = comboTabla.getValue();
+        String consulta = fieldConsulta.getText();
         switch (tabla) {
             case "Cine":
                 Cine cine = new Cine();
@@ -116,9 +122,23 @@ public class VisualizarDatosController implements Initializable {
                     resultado += "-----------------------";
                 }
                 break;
+            case "Peliculas por cine":
+                Pelicula cinePelicula = new Pelicula();
+                Session sesionCinePelicula = cinePelicula.crearSesion();
+                Cine cineId = obtenerCine(consulta);
+                List<Pelicula> listaCinePelicula = cinePelicula.consultarPeliculasCine(sesionCinePelicula, consulta);
+                for (Pelicula cinesPeliculas : listaCinePelicula) {
+                    resultado += cinesPeliculas.getTitulo();
+                    resultado += "-----------------------";
+                }
         }
+
         areaResultado.setText(resultado);
         resultado = "-----------------------";
+    }
+    
+    private Cine obtenerCine(String consulta) {
+        
     }
 
     @FXML
@@ -126,7 +146,8 @@ public class VisualizarDatosController implements Initializable {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-        FXMLLoader escena = new FXMLLoader(App.class.getResource("PantallaPrincipal.fxml"));
+        FXMLLoader escena = new FXMLLoader(App.class
+                .getResource("PantallaPrincipal.fxml"));
         Parent looker = escena.load();
         Scene scene = new Scene(looker);
         stage = new Stage();

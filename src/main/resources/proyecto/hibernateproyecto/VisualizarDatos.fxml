@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,9 +16,11 @@
          </font>
       </Label>
       <ComboBox fx:id="comboTabla" layoutX="74.0" layoutY="157.0" prefWidth="150.0" />
-      <Button fx:id="botonVisualizar" layoutX="116.0" layoutY="229.0" mnemonicParsing="false" onAction="#visualizar" text="Visualizar" />
+      <Button fx:id="botonVisualizar" layoutX="112.0" layoutY="286.0" mnemonicParsing="false" onAction="#visualizar" text="Visualizar" />
       <Button fx:id="botonVolver" layoutX="39.0" layoutY="339.0" mnemonicParsing="false" onAction="#volver" prefHeight="26.0" prefWidth="91.0" text="Volver" />
       <TextArea fx:id="areaResultado" editable="false" layoutX="284.0" layoutY="101.0" prefHeight="282.0" prefWidth="302.0" />
       <Label layoutX="130.0" layoutY="127.0" text="Tabla" />
+      <TextField fx:id="fieldConsulta" layoutX="74.0" layoutY="242.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="126.0" layoutY="214.0" text="Consulta" />
    </children>
 </AnchorPane>
