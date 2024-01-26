@@ -109,6 +109,7 @@ public class Cine extends AccionesGenerico {
     
     public Cine consultarId(Session session, String id) {
         Cine cine = session.get(Cine.class, id);
+        System.out.println("Returning " + cine.getNombre());
         return cine;
     }
     

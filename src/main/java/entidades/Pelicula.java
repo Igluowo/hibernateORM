@@ -114,7 +114,7 @@ public class Pelicula extends AccionesGenerico {
         return pelicula;
     }
 
-    public List<Pelicula> consultarPeliculasCine(Session sesion, String cine) {
+    public List<Pelicula> consultarPeliculasCine(Session sesion, Cine cine) {
         String consulta = "Select f.idPelicula From Funcion as f where f.idCine = :cineId";
         Query query = sesion.createQuery(consulta, Pelicula.class);
         query.setParameter("cineId", cine);

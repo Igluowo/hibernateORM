@@ -11,6 +11,7 @@ import entidades.Protagonista;
 import entidades.Tarifa;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -126,7 +127,8 @@ public class VisualizarDatosController implements Initializable {
                 Pelicula cinePelicula = new Pelicula();
                 Session sesionCinePelicula = cinePelicula.crearSesion();
                 Cine cineId = obtenerCine(consulta);
-                List<Pelicula> listaCinePelicula = cinePelicula.consultarPeliculasCine(sesionCinePelicula, consulta);
+                System.out.println("BEFORE " + cineId.getNombre() + " " + consulta);
+                List<Pelicula> listaCinePelicula = cinePelicula.consultarPeliculasCine(sesionCinePelicula, cineId);
                 for (Pelicula cinesPeliculas : listaCinePelicula) {
                     resultado += cinesPeliculas.getTitulo();
                     resultado += "-----------------------";
@@ -138,7 +140,11 @@ public class VisualizarDatosController implements Initializable {
     }
     
     private Cine obtenerCine(String consulta) {
-        
+        Cine cine = new Cine();
+        Session session = cine.crearSesion();
+        cine.consultarId(session, consulta);
+        session.close();
+        return cine;
     }
 
     @FXML
