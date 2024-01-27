@@ -63,7 +63,7 @@ public class PantallaTarifaController implements Initializable {
     private TextField fieldDia;
 
     @FXML
-    private Spinner<?> fieldPrecio;
+    private TextField fieldPrecio;
 
     @FXML
     private Label tituloVentana;
@@ -72,7 +72,7 @@ public class PantallaTarifaController implements Initializable {
     void insertar(ActionEvent event) {
         String cineString = comboCine.getValue();
         String dia = fieldDia.getText();
-        String precio = fieldPrecio.getValue().toString();
+        String precio = fieldPrecio.getText();
         Cine cineOb = new Cine();
         Session sesion = cineOb.crearSesion();
         Cine cine = cineOb.consultarId(sesion, cineString);

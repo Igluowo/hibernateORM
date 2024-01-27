@@ -76,9 +76,9 @@ public class PantallaProtagonistaController implements Initializable {
         Protagonista protagonista = new Protagonista(protagonistaString, pelicula);
         protagonista.crearSesion();
         if (App.getAccion() == "añadir") {
-            protagonista.insertar(session, pelicula);
+            protagonista.insertar(session, protagonista);
         } else {
-            protagonista.actualizar(session, pelicula);
+            protagonista.actualizar(session, protagonista);
         }
     }
 

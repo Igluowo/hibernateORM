@@ -79,6 +79,18 @@ public class Protagonista extends AccionesGenerico {
         return protagonista;
     }
 
+    public List<Object[]> devolverPeliculaCineProta(Session sesion, String protagonista) {
+        String hql = "SELECT p, c FROM Pelicula p " +
+                 "JOIN Funcion f ON f.idPelicula = p " +
+                 "JOIN Cine c ON f.idCine = c " +
+                 "WHERE p IN (SELECT pr.pelicula FROM Protagonista pr WHERE pr.nombre = :nombreProtagonista)";
+        Query<Object[]> query = sesion.createQuery(hql, Object[].class);
+        query.setParameter("nombreProtagonista", protagonista);
+        List<Object[]> resultados = query.list();
+        query.setParameter("nombreProtagonista", protagonista);
+        return resultados;
+    }
+
     @Override
     public String toString() {
         return "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo() + "\n";

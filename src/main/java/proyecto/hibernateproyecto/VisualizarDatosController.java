@@ -11,7 +11,6 @@ import entidades.Protagonista;
 import entidades.Tarifa;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.DriverManager;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -25,8 +24,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 
@@ -49,6 +50,8 @@ public class VisualizarDatosController implements Initializable {
         listaTablas.add("Tarifa");
         listaTablas.add("Protagonista");
         listaTablas.add("Peliculas por cine");
+        listaTablas.add("Cines por protagonista en Peliculas");
+        listaTablas.add("Películas asociadas al protagonista y sus cines");
         comboTabla.setItems(listaTablas);
     }
 
@@ -65,6 +68,9 @@ public class VisualizarDatosController implements Initializable {
 
     @FXML
     private ComboBox<String> comboTabla;
+
+    @FXML
+    private Label etiquetaConsulta;
 
     @FXML
     private TextField fieldConsulta;
@@ -127,24 +133,41 @@ public class VisualizarDatosController implements Initializable {
                 Pelicula cinePelicula = new Pelicula();
                 Session sesionCinePelicula = cinePelicula.crearSesion();
                 Cine cineId = obtenerCine(consulta);
-                System.out.println("BEFORE " + cineId.getNombre() + " " + consulta);
                 List<Pelicula> listaCinePelicula = cinePelicula.consultarPeliculasCine(sesionCinePelicula, cineId);
                 for (Pelicula cinesPeliculas : listaCinePelicula) {
-                    resultado += cinesPeliculas.getTitulo();
+                    resultado += "\n" + cinesPeliculas.toString() + "\n";
                     resultado += "-----------------------";
                 }
+            case "Cines por protagonista en Peliculas":
+                Cine cineProtagonista = new Cine();
+                Session sesionCineProtagonista = cineProtagonista.crearSesion();
+                List<Cine> listaCineProtagonista = cineProtagonista.devolverCineProtas(sesionCineProtagonista, consulta);
+                for (Cine cinesProtagonista : listaCineProtagonista) {
+                    resultado += "\n" + cinesProtagonista.toString() + "\n";
+                    resultado += "-----------------------";
+                }
+            case "Películas asociadas al protagonista y sus cines":
+                Protagonista protagonistaPelicula = new Protagonista();
+                Session sesionProtagonistaCine = protagonistaPelicula.crearSesion();
+                List<Object[]> listaProtagonistaPeliculaCine = protagonistaPelicula.
+                        devolverPeliculaCineProta(sesionProtagonistaCine, consulta);
+                for (Object[] resultados : listaProtagonistaPeliculaCine) {
+                    Pelicula peliculaDatos = (Pelicula) resultados[0];
+                    Cine cineDatos = (Cine) resultados[1];
+                    resultado += "\nPelicula: " + peliculaDatos.getTitulo() + "\nCine: " + cineDatos.getNombre();
+                    resultado += "\n-----------------------";
+                }
+
         }
 
         areaResultado.setText(resultado);
         resultado = "-----------------------";
     }
-    
+
     private Cine obtenerCine(String consulta) {
         Cine cine = new Cine();
         Session session = cine.crearSesion();
-        cine.consultarId(session, consulta);
-        session.close();
-        return cine;
+        return cine.consultarId(session, consulta);
     }
 
     @FXML

@@ -28,7 +28,7 @@ public class Tarifa extends AccionesGenerico {
     public Tarifa() {
     }
 
-    public Tarifa(String dia, double precio, Cine cine) {
+    public Tarifa(String dia, String precio, Cine cine) {
         this.dia = dia;
         this.precio = precio;
         this.cine = cine;
@@ -42,7 +42,7 @@ public class Tarifa extends AccionesGenerico {
     private String dia;
 
     @Column(name = "Precio")
-    private double precio;
+    private String precio;
 
     @ManyToOne
     @JoinColumn(name = "IdCine")
@@ -64,11 +64,11 @@ public class Tarifa extends AccionesGenerico {
         this.dia = dia;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 

@@ -23,15 +23,16 @@ import proyecto.hibernateproyecto.AccionesGenerico;
 @Entity
 @Table(name = "Cine")
 public class Cine extends AccionesGenerico {
-    
-    public Cine() {}
+
+    public Cine() {
+    }
 
     public Cine(String nombre, String calle, String numero, String telefono) {
         this.nombre = nombre;
         this.calle = calle;
         this.numero = numero;
         this.telefono = telefono;
-    }      
+    }
 
     @Id
     private String nombre;
@@ -48,7 +49,7 @@ public class Cine extends AccionesGenerico {
     @OneToMany(mappedBy = "idCine", cascade = CascadeType.ALL)
     private Set<Funcion> listaFunciones;
 
-    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL, orphanRemoval = true) 
+    @OneToMany(mappedBy = "cine", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Tarifa> tarifas;
 
     public String getNombre() {
@@ -106,16 +107,28 @@ public class Cine extends AccionesGenerico {
         List<Cine> lista = query.list();
         return lista;
     }
-    
+
     public Cine consultarId(Session session, String id) {
         Cine cine = session.get(Cine.class, id);
         System.out.println("Returning " + cine.getNombre());
         return cine;
     }
-    
+
+    public List<Cine> devolverCineProtas(Session sesion, String protagonista) {
+        String hql = "SELECT DISTINCT c FROM Cine c "
+                + "JOIN c.listaFunciones f "
+                + "JOIN f.idPelicula p "
+                + "JOIN p.protagonistas pr "
+                + "WHERE pr.nombre = :nombreProtagonista";
+        Query<Cine> query = sesion.createQuery(hql, Cine.class);
+        query.setParameter("nombreProtagonista", protagonista);
+        List<Cine> cines = query.list();
+        return cines;
+    }
+
     @Override
     public String toString() {
-        return "\nNombre: " + nombre + "\nCalle: " + calle + "\nNúmero: " + numero +
-                "\nTeléfono: " + telefono + "\n";
+        return "\nNombre: " + nombre + "\nCalle: " + calle + "\nNúmero: " + numero
+                + "\nTeléfono: " + telefono + "\n";
     }
 }
