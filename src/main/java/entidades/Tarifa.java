@@ -12,10 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import proyecto.hibernateproyecto.AccionesGenerico;
+
 
 /**
  *
@@ -23,12 +20,19 @@ import proyecto.hibernateproyecto.AccionesGenerico;
  */
 @Entity
 @Table(name = "Tarifa")
-public class Tarifa extends AccionesGenerico {
+public class Tarifa {
 
     public Tarifa() {
     }
 
     public Tarifa(String dia, String precio, Cine cine) {
+        this.dia = dia;
+        this.precio = precio;
+        this.cine = cine;
+    }
+
+    public Tarifa(int id, String dia, String precio, Cine cine) {
+        this.id = id;
         this.dia = dia;
         this.precio = precio;
         this.cine = cine;
@@ -45,7 +49,7 @@ public class Tarifa extends AccionesGenerico {
     private String precio;
 
     @ManyToOne
-    @JoinColumn(name = "IdCine")
+    @JoinColumn(name = "idCine")
     private Cine cine;
 
     public int getId() {
@@ -81,20 +85,7 @@ public class Tarifa extends AccionesGenerico {
     }
 
     @Override
-    public List<Tarifa> consultar(Session session) {
-        String consulta = "FROM Tarifa";
-        Query query = session.createQuery(consulta);
-        List<Tarifa> lista = query.list();
-        return lista;
-    }
-
-    public Tarifa consultarId(Session session, String id) {
-        Tarifa tarifa = session.get(Tarifa.class, id);
-        return tarifa;
-    }
-
-    @Override
     public String toString() {
-        return "\nCine: " + cine.getNombre() + "\nDia: " + dia + "\nPrecio: " + precio + "\n";
+        return "\nID: " + id + "\nCine: " + cine.getNombre() + "\nDia: " + dia + "\nPrecio: " + precio + "\n";
     }
 }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package controladores;
 
 import entidades.Cine;
 import entidades.Funcion;
@@ -26,6 +26,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import proyecto.hibernateproyecto.App;
+import repositorio.CineRepositorio;
+import repositorio.FuncionRepositorio;
+import repositorio.PeliculaRepositorio;
 
 /**
  * FXML Controller class
@@ -39,17 +43,16 @@ public class InsertarFuncionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Cine cineOb = new Cine();
-        Session sesion = cineOb.crearSesion();
-        List<Cine> listaCine = cineOb.consultar(sesion);
+        Session sesion = cineRepo.crearSesion();
+        List<Cine> listaCine = cineRepo.consultar(sesion);
         ObservableList<String> listaString = FXCollections.observableArrayList();
         for (Cine cine : listaCine) {
             listaString.add(cine.getNombre());
         }
         comboCine.setItems(listaString);
-        Pelicula peliculaOb = new Pelicula();
-        sesion = peliculaOb.crearSesion();
-        List<Pelicula> listaPelicula = peliculaOb.consultar(sesion);
+
+        sesion = peliculaRepo.crearSesion();
+        List<Pelicula> listaPelicula = peliculaRepo.consultar(sesion);
         ObservableList<String> listaStringPelicula = FXCollections.observableArrayList();
         for (Pelicula pelicula : listaPelicula) {
             listaStringPelicula.add(pelicula.getTitulo());
@@ -57,6 +60,8 @@ public class InsertarFuncionController implements Initializable {
         comboPelicula.setItems(listaStringPelicula);
         if (App.getAccion() == "actualizar") {
             botonInsertar.setText("Actualizar");
+            labelId.setVisible(true);
+            fieldId.setVisible(true);
             titulo.setText("Actualizar la tabla Función");
         }
     }
@@ -77,25 +82,38 @@ public class InsertarFuncionController implements Initializable {
     private TextField fieldHora;
 
     @FXML
+    private TextField fieldId;
+
+    @FXML
+    private Label labelId;
+
+    PeliculaRepositorio peliculaRepo = new PeliculaRepositorio();
+
+    CineRepositorio cineRepo = new CineRepositorio();
+
+    FuncionRepositorio funcionRepo = new FuncionRepositorio();
+
+    @FXML
     void insertar(ActionEvent event) {
         String cine = comboCine.getValue();
         String pelicula = comboPelicula.getValue();
         String hora = fieldHora.getText();
+        String id = fieldId.getText();
         comboCine.setValue("");
         comboPelicula.setValue("");
         fieldHora.clear();
-        Cine cineOb = new Cine();
-        Pelicula peliculaOb = new Pelicula();
-        Session sesion = cineOb.crearSesion();
-        Cine cineFun = cineOb.consultarId(sesion, cine);
-        sesion = peliculaOb.crearSesion();
-        Pelicula peliculaFun = peliculaOb.consultarId(sesion, pelicula);
-        Funcion funcion = new Funcion(peliculaFun, cineFun, hora);
-        sesion = funcion.crearSesion();
+        fieldId.clear();
+        Session sesion = cineRepo.crearSesion();
+        Cine cineFun = cineRepo.consultarId(sesion, cine);
+        sesion = peliculaRepo.crearSesion();
+        Pelicula peliculaFun = peliculaRepo.consultarId(sesion, pelicula);
+        sesion = funcionRepo.crearSesion();
         if (App.getAccion() == "añadir") {
-            funcion.insertar(sesion, funcion);
+            Funcion funcion = new Funcion(peliculaFun, cineFun, hora);
+            funcionRepo.insertar(sesion, funcion);
         } else {
-            funcion.actualizar(sesion, funcion);
+            Funcion funcion = new Funcion(Integer.parseInt(id), peliculaFun, cineFun, hora);
+            funcionRepo.actualizar(sesion, funcion);
         }
     }
 

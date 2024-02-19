@@ -11,10 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
  *
@@ -22,7 +18,7 @@ import proyecto.hibernateproyecto.AccionesGenerico;
  */
 @Entity
 @Table(name = "Protagonista")
-public class Protagonista extends AccionesGenerico {
+public class Protagonista {
 
     public Protagonista() {
     }
@@ -31,6 +27,13 @@ public class Protagonista extends AccionesGenerico {
         this.nombre = nombre;
         this.pelicula = pelicula;
     }
+
+    public Protagonista(int id, String nombre, Pelicula pelicula) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pelicula = pelicula;
+    }
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,32 +70,7 @@ public class Protagonista extends AccionesGenerico {
     }
 
     @Override
-    public List<Protagonista> consultar(Session session) {
-        String consulta = "FROM Protagonista";
-        Query query = session.createQuery(consulta);
-        List<Protagonista> lista = query.list();
-        return lista;
-    }
-
-    public Protagonista consultarId(Session session, String id) {
-        Protagonista protagonista = session.get(Protagonista.class, id);
-        return protagonista;
-    }
-
-    public List<Object[]> devolverPeliculaCineProta(Session sesion, String protagonista) {
-        String hql = "SELECT p, c FROM Pelicula p " +
-                 "JOIN Funcion f ON f.idPelicula = p " +
-                 "JOIN Cine c ON f.idCine = c " +
-                 "WHERE p IN (SELECT pr.pelicula FROM Protagonista pr WHERE pr.nombre = :nombreProtagonista)";
-        Query<Object[]> query = sesion.createQuery(hql, Object[].class);
-        query.setParameter("nombreProtagonista", protagonista);
-        List<Object[]> resultados = query.list();
-        query.setParameter("nombreProtagonista", protagonista);
-        return resultados;
-    }
-
-    @Override
     public String toString() {
-        return "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo() + "\n";
+        return "\nID: " + id + "\nNombre: " + nombre + "\nPelicula: " + pelicula.getTitulo() + "\n";
     }
 }

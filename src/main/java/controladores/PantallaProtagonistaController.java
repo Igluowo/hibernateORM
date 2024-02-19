@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package controladores;
 
 import entidades.Pelicula;
 import entidades.Protagonista;
@@ -25,6 +25,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import proyecto.hibernateproyecto.App;
+import repositorio.PeliculaRepositorio;
+import repositorio.ProtagonistaRepositorio;
 
 /**
  * FXML Controller class
@@ -38,15 +41,16 @@ public class PantallaProtagonistaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Pelicula peliculaOb = new Pelicula();
-        Session sesion = peliculaOb.crearSesion();
-        List<Pelicula> listaPelicula = peliculaOb.consultar(sesion);
+        Session sesion = peliculaRepo.crearSesion();
+        List<Pelicula> listaPelicula = peliculaRepo.consultar(sesion);
         ObservableList<String> listaStringPelicula = FXCollections.observableArrayList();
         for (Pelicula pelicula : listaPelicula) {
             listaStringPelicula.add(pelicula.getTitulo());
         }
         comboPelicula.setItems(listaStringPelicula);
         if (App.getAccion() == "actualizar") {
+            labelId.setVisible(true);
+            fieldId.setVisible(true);
             botonInsertar.setText("Actualizar");
             tituloVentana.setText("Actualizar la tabla Protagonista");
         }
@@ -65,20 +69,31 @@ public class PantallaProtagonistaController implements Initializable {
     private Label tituloVentana;
 
     @FXML
+    private TextField fieldId;
+
+    @FXML
+    private Label labelId;
+
+    PeliculaRepositorio peliculaRepo = new PeliculaRepositorio();
+
+    ProtagonistaRepositorio protagonistaRepo = new ProtagonistaRepositorio();
+
+    @FXML
     void insertar(ActionEvent event) {
         String peliculaString = comboPelicula.getValue();
         String protagonistaString = fieldProtagonista.getText();
+        String id = fieldId.getText();
         comboPelicula.setValue("");
         fieldProtagonista.clear();
-        Pelicula pelicula = new Pelicula();
-        Session session = pelicula.crearSesion();
-        pelicula = pelicula.consultarId(session, peliculaString);
-        Protagonista protagonista = new Protagonista(protagonistaString, pelicula);
-        protagonista.crearSesion();
+        fieldId.clear();
+        Session session = peliculaRepo.crearSesion();
+        Pelicula pelicula = peliculaRepo.consultarId(session, peliculaString);
         if (App.getAccion() == "añadir") {
-            protagonista.insertar(session, protagonista);
+            Protagonista protagonista = new Protagonista(protagonistaString, pelicula);
+            protagonistaRepo.insertar(session, protagonista);
         } else {
-            protagonista.actualizar(session, protagonista);
+            Protagonista protagonista = new Protagonista(Integer.parseInt(id), protagonistaString, pelicula);
+            protagonistaRepo.actualizar(session, protagonista);
         }
     }
 

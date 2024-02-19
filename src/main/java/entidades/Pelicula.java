@@ -10,11 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;
 import java.util.Set;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
  *
@@ -22,7 +18,7 @@ import proyecto.hibernateproyecto.AccionesGenerico;
  */
 @Entity
 @Table(name = "Pelicula")
-public class Pelicula extends AccionesGenerico {
+public class Pelicula {
 
     public Pelicula() {
     }
@@ -99,27 +95,6 @@ public class Pelicula extends AccionesGenerico {
 
     public void setProtagonistas(Set<Protagonista> protagonistas) {
         this.protagonistas = protagonistas;
-    }
-
-    @Override
-    public List<Pelicula> consultar(Session session) {
-        String consulta = "FROM Pelicula";
-        Query query = session.createQuery(consulta);
-        List<Pelicula> lista = query.list();
-        return lista;
-    }
-
-    public Pelicula consultarId(Session session, String id) {
-        Pelicula pelicula = session.get(Pelicula.class, id);
-        return pelicula;
-    }
-
-    public List<Pelicula> consultarPeliculasCine(Session sesion, Cine cine) {
-        String consulta = "Select f.idPelicula From Funcion as f where f.idCine = :cineId";
-        Query query = sesion.createQuery(consulta, Pelicula.class);
-        query.setParameter("cineId", cine);
-        List<Pelicula> lista = query.list();
-        return lista;
     }
 
     @Override

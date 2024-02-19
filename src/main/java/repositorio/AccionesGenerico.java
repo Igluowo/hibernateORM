@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package repositorio;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,8 +32,8 @@ public abstract class AccionesGenerico<T> {
 
     public void eliminar(Session sesion, T objeto) {
         sesion.beginTransaction();
-        sesion.delete(objeto);
-        sesion.getTransaction();
+        sesion.remove(objeto);
+        sesion.getTransaction().commit();
         sesion.close();
     }
 

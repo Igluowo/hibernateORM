@@ -7,18 +7,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto.hibernateproyecto.PantallaProtagonistaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.PantallaProtagonistaController">
    <children>
       <Label fx:id="tituloVentana" layoutX="145.0" layoutY="23.0" text="Insetar datos en Protagonista">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="fieldProtagonista" layoutX="75.0" layoutY="193.0" />
-      <ComboBox fx:id="comboPelicula" layoutX="374.0" layoutY="193.0" prefWidth="150.0" />
-      <Label layoutX="82.0" layoutY="164.0" text="Nombre del protagonista" />
-      <Label layoutX="429.0" layoutY="164.0" text="Pelicula" />
+      <TextField fx:id="fieldProtagonista" layoutX="74.0" layoutY="180.0" />
+      <ComboBox fx:id="comboPelicula" layoutX="374.0" layoutY="180.0" prefWidth="150.0" />
+      <Label layoutX="82.0" layoutY="146.0" text="Nombre del protagonista" />
+      <Label layoutX="429.0" layoutY="146.0" text="Pelicula" />
       <Button fx:id="botonInsertar" layoutX="413.0" layoutY="324.0" mnemonicParsing="false" onAction="#insertar" prefHeight="50.0" prefWidth="134.0" text="Insertar" />
       <Button fx:id="botonVolver" layoutX="53.0" layoutY="324.0" mnemonicParsing="false" onAction="#volver" prefHeight="50.0" prefWidth="91.0" text="Volver" />
+      <TextField fx:id="fieldId" layoutX="225.0" layoutY="281.0" visible="false" />
+      <Label fx:id="labelId" layoutX="218.0" layoutY="243.0" text="Id del protagonista a actualizar" visible="false" />
    </children>
 </AnchorPane>

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package controladores;
 
 import entidades.Cine;
 import entidades.Funcion;
@@ -27,9 +27,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import proyecto.hibernateproyecto.App;
+import repositorio.CineRepositorio;
+import repositorio.FuncionRepositorio;
+import repositorio.PeliculaRepositorio;
+import repositorio.ProtagonistaRepositorio;
+import repositorio.TarifaRepositorio;
 
 /**
  * FXML Controller class
@@ -74,6 +79,16 @@ public class VisualizarDatosController implements Initializable {
 
     @FXML
     private TextField fieldConsulta;
+    
+    CineRepositorio cine = new CineRepositorio();
+    
+    PeliculaRepositorio pelicula = new PeliculaRepositorio();
+    
+    FuncionRepositorio funcion = new FuncionRepositorio();
+    
+    ProtagonistaRepositorio protagonista = new ProtagonistaRepositorio();
+    
+    TarifaRepositorio tarifa = new TarifaRepositorio();
 
     @FXML
     void visualizar(ActionEvent event) {
@@ -81,7 +96,6 @@ public class VisualizarDatosController implements Initializable {
         String consulta = fieldConsulta.getText();
         switch (tabla) {
             case "Cine":
-                Cine cine = new Cine();
                 Session sesionCine = cine.crearSesion();
                 List<Cine> listaCine = cine.consultar(sesionCine);
                 for (Cine cineElemento : listaCine) {
@@ -91,7 +105,6 @@ public class VisualizarDatosController implements Initializable {
                 }
                 break;
             case "Pelicula":
-                Pelicula pelicula = new Pelicula();
                 Session sesionPelicula = pelicula.crearSesion();
                 List<Pelicula> listaPelicula = pelicula.consultar(sesionPelicula);
                 for (Pelicula peliculaElemento : listaPelicula) {
@@ -101,7 +114,6 @@ public class VisualizarDatosController implements Initializable {
                 }
                 break;
             case "Protagonista":
-                Protagonista protagonista = new Protagonista();
                 Session sesionProtagonista = protagonista.crearSesion();
                 List<Protagonista> listaProtagonista = protagonista.consultar(sesionProtagonista);
                 for (Protagonista protagonistaElemento : listaProtagonista) {
@@ -111,7 +123,6 @@ public class VisualizarDatosController implements Initializable {
                 }
                 break;
             case "Funcion":
-                Funcion funcion = new Funcion();
                 Session sesionFuncion = funcion.crearSesion();
                 List<Funcion> listaFuncion = funcion.consultar(sesionFuncion);
                 for (Funcion funcionElemento : listaFuncion) {
@@ -121,7 +132,6 @@ public class VisualizarDatosController implements Initializable {
                 }
                 break;
             case "Tarifa":
-                Tarifa tarifa = new Tarifa();
                 Session sesionTarifa = tarifa.crearSesion();
                 List<Tarifa> listaTarifa = tarifa.consultar(sesionTarifa);
                 for (Tarifa tarifaElemento : listaTarifa) {
@@ -130,26 +140,23 @@ public class VisualizarDatosController implements Initializable {
                 }
                 break;
             case "Peliculas por cine":
-                Pelicula cinePelicula = new Pelicula();
-                Session sesionCinePelicula = cinePelicula.crearSesion();
+                Session sesionCinePelicula = cine.crearSesion();
                 Cine cineId = obtenerCine(consulta);
-                List<Pelicula> listaCinePelicula = cinePelicula.consultarPeliculasCine(sesionCinePelicula, cineId);
+                List<Pelicula> listaCinePelicula = pelicula.consultarPeliculasCine(sesionCinePelicula, cineId);
                 for (Pelicula cinesPeliculas : listaCinePelicula) {
                     resultado += "\n" + cinesPeliculas.toString() + "\n";
                     resultado += "-----------------------";
                 }
             case "Cines por protagonista en Peliculas":
-                Cine cineProtagonista = new Cine();
-                Session sesionCineProtagonista = cineProtagonista.crearSesion();
-                List<Cine> listaCineProtagonista = cineProtagonista.devolverCineProtas(sesionCineProtagonista, consulta);
+                Session sesionCineProtagonista = cine.crearSesion();
+                List<Cine> listaCineProtagonista = cine.devolverCineProtas(sesionCineProtagonista, consulta);
                 for (Cine cinesProtagonista : listaCineProtagonista) {
                     resultado += "\n" + cinesProtagonista.toString() + "\n";
                     resultado += "-----------------------";
                 }
             case "Películas asociadas al protagonista y sus cines":
-                Protagonista protagonistaPelicula = new Protagonista();
-                Session sesionProtagonistaCine = protagonistaPelicula.crearSesion();
-                List<Object[]> listaProtagonistaPeliculaCine = protagonistaPelicula.
+                Session sesionProtagonistaCine = protagonista.crearSesion();
+                List<Object[]> listaProtagonistaPeliculaCine = protagonista.
                         devolverPeliculaCineProta(sesionProtagonistaCine, consulta);
                 for (Object[] resultados : listaProtagonistaPeliculaCine) {
                     Pelicula peliculaDatos = (Pelicula) resultados[0];
@@ -165,7 +172,6 @@ public class VisualizarDatosController implements Initializable {
     }
 
     private Cine obtenerCine(String consulta) {
-        Cine cine = new Cine();
         Session session = cine.crearSesion();
         return cine.consultarId(session, consulta);
     }

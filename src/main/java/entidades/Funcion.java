@@ -12,12 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalTime;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.query.Query;
-import proyecto.hibernateproyecto.AccionesGenerico;
 
 /**
  *
@@ -25,9 +19,16 @@ import proyecto.hibernateproyecto.AccionesGenerico;
  */
 @Entity
 @Table(name = "Función")
-public class Funcion extends AccionesGenerico {
+public class Funcion {
 
     public Funcion() {
+    }
+
+    public Funcion(int id, Pelicula idPelicula, Cine idCine, String hora) {
+        this.idPelicula = idPelicula;
+        this.idCine = idCine;
+        this.hora = hora;
+        this.id = id;
     }
 
     public Funcion(Pelicula idPelicula, Cine idCine, String hora) {
@@ -76,21 +77,8 @@ public class Funcion extends AccionesGenerico {
     }
 
     @Override
-    public List<Funcion> consultar(Session session) {
-        String consulta = "FROM Funcion";
-        Query query = session.createQuery(consulta);
-        List<Funcion> lista = query.list();
-        return lista;
-    }
-
-    public Funcion consultarId(Session session, String id) {
-        Funcion funcion = session.get(Funcion.class, id);
-        return funcion;
-    }
-
-    @Override
     public String toString() {
-        return "\nCine: " + idCine.getNombre() + "\nPelícula: " + idPelicula.getTitulo() +
-                "\nHora: " + hora + "\n";
+        return "\nID: " + id + "\nCine: " + idCine.getNombre() + "\nPelícula: " + idPelicula.getTitulo()
+                + "\nHora: " + hora + "\n";
     }
 }

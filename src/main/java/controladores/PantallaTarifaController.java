@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package controladores;
 
 import entidades.Cine;
 import entidades.Tarifa;
@@ -22,10 +22,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import proyecto.hibernateproyecto.App;
+import repositorio.CineRepositorio;
+import repositorio.TarifaRepositorio;
 
 /**
  * FXML Controller class
@@ -39,19 +41,26 @@ public class PantallaTarifaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Cine cineOb = new Cine();
-        Session sesion = cineOb.crearSesion();
-        List<Cine> listaCine = cineOb.consultar(sesion);
+        Session sesion = cineRepo.crearSesion();
+        List<Cine> listaCine = cineRepo.consultar(sesion);
         ObservableList<String> listaString = FXCollections.observableArrayList();
         for (Cine cine : listaCine) {
             listaString.add(cine.getNombre());
         }
         comboCine.setItems(listaString);
         if (App.getAccion() == "actualizar") {
+            labelId.setVisible(true);
+            fieldId.setVisible(true);
             botonInsertar.setText("Actualizar");
             tituloVentana.setText("Actualizar la tabla Tarifa");
         }
     }
+
+    @FXML
+    private TextField fieldId;
+
+    @FXML
+    private Label labelId;
 
     @FXML
     private Button botonInsertar;
@@ -68,21 +77,30 @@ public class PantallaTarifaController implements Initializable {
     @FXML
     private Label tituloVentana;
 
+    TarifaRepositorio tarifa = new TarifaRepositorio();
+
+    CineRepositorio cineRepo = new CineRepositorio();
+
     @FXML
     void insertar(ActionEvent event) {
         String cineString = comboCine.getValue();
         String dia = fieldDia.getText();
         String precio = fieldPrecio.getText();
-        Cine cineOb = new Cine();
-        Session sesion = cineOb.crearSesion();
-        Cine cine = cineOb.consultarId(sesion, cineString);
-        Tarifa tarifa = new Tarifa();
+        String id = fieldId.getText();
+        Session sesion = tarifa.crearSesion();
+        Cine cine = cineRepo.consultarId(sesion, cineString);
+        sesion.close();
         sesion = tarifa.crearSesion();
-        tarifa.insertar(sesion, cine);
+        fieldDia.clear();
+        comboCine.setValue("");
+        fieldPrecio.clear();
+        fieldId.clear();
         if (App.getAccion() == "añadir") {
-            tarifa.insertar(sesion, tarifa);
+            Tarifa tarifaObj = new Tarifa(dia, precio, cine);
+            tarifa.insertar(sesion, tarifaObj);
         } else {
-            tarifa.actualizar(sesion, tarifa);
+            Tarifa tarifaObj = new Tarifa(Integer.parseInt(id), dia, precio, cine);
+            tarifa.actualizar(sesion, tarifaObj);
         }
     }
 

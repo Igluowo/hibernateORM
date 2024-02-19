@@ -9,5 +9,7 @@ module proyecto.hibernateproyecto {
 
     opens proyecto.hibernateproyecto to javafx.fxml;
     opens entidades;
+    opens controladores;
+    opens repositorio;
     exports proyecto.hibernateproyecto;
 }

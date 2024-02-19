@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package proyecto.hibernateproyecto;
+package controladores;
 
 import entidades.Cine;
 import entidades.Pelicula;
@@ -21,6 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.hibernate.Session;
+import proyecto.hibernateproyecto.App;
+import repositorio.CineRepositorio;
+import repositorio.PeliculaRepositorio;
 
 /**
  * FXML Controller class
@@ -61,6 +64,10 @@ public class PantallaCineController implements Initializable {
 
     @FXML
     private Label tituloVentana;
+    
+    CineRepositorio cineRepo = new CineRepositorio();
+    
+    PeliculaRepositorio peliculaRepo = new PeliculaRepositorio();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,11 +100,11 @@ public class PantallaCineController implements Initializable {
             fieldNumero.clear();
             fieldTelefono.clear();
             Cine cine = new Cine(nombre, direccion, numero, telefono);
-            Session sesion = cine.crearSesion();
+            Session sesion = cineRepo.crearSesion();
             if (App.getAccion() == "añadir") {
-                cine.insertar(sesion, cine);
+                cineRepo.insertar(sesion, cine);
             } else {
-                cine.actualizar(sesion, cine);
+                cineRepo.actualizar(sesion, cine);
             }
         } else {
             String titulo = fieldNombre.getText();
@@ -109,11 +116,11 @@ public class PantallaCineController implements Initializable {
             fieldNumero.clear();
             fieldTelefono.clear();
             Pelicula pelicula = new Pelicula(titulo, director, clasificacion, genero);
-            Session sesion = pelicula.crearSesion();
+            Session sesion = peliculaRepo.crearSesion();
             if (App.getAccion() == "añadir") {
-                pelicula.insertar(sesion, pelicula);
+                peliculaRepo.insertar(sesion, pelicula);
             } else {
-                pelicula.actualizar(sesion, pelicula);
+                peliculaRepo.actualizar(sesion, pelicula);
             }
         }
     }
